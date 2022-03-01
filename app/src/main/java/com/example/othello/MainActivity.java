@@ -5,14 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button[][] buttons = new Button[8][8];
+    final private Button[][] buttons = new Button[8][8];
 
     private boolean player1Turn = true;
 
@@ -43,10 +42,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         Button buttonReset = findViewById(R.id.button_reset);
-        buttonReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
+        buttonReset.setOnClickListener(v -> {
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    String buttonID = "button_" + i + j;
+                    int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
+                    buttons[i][j] = findViewById(resID);
+                    buttons[i][j].setBackgroundColor(Color.parseColor("#185915"));
+                }
             }
         });
     }
@@ -58,9 +61,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if (player1Turn) {
-            ((Button) v).setBackgroundColor(Color.BLACK);
+            v.setBackgroundColor(Color.BLACK);
         } else {
-            ((Button) v).setBackgroundColor(Color.WHITE);
+            v.setBackgroundColor(Color.WHITE);
         }
 
         roundCount++;
@@ -110,13 +113,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return true;
         }
 
-        if (field[0][2].equals(field[1][1])
+        return field[0][2].equals(field[1][1])
                 && field[0][2].equals(field[2][0])
-                && !field[0][2].equals("")) {
-            return true;
-        }
-
-        return false;
+                && !field[0][2].equals("");
     }
 
     private void player1Wins() {
