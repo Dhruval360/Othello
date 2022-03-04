@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:bottom="@dimen/coinMargin"
+        android:top="@dimen/coinMargin"
+        android:left="@dimen/coinMargin"
+        android:right="@dimen/coinMargin" >
+        <shape
+            android:shape="oval">
+            <solid android:color="#ffffffff"/>
+        </shape>
+    </item>
+    <item>
+        <shape
+            android:shape="rectangle">
+            <solid android:color="@null"/>
+            <stroke android:width="1dp" android:color="@color/cellBorder" />
+            <size
+                android:width="@dimen/boxSize"
+                android:height="@dimen/boxSize"/>
+        </shape>
+    </item>
+</layer-list>

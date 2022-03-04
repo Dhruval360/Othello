@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="boxSize">48dp</dimen>
-    <dimen name="cellSpace">5dp</dimen>
+    <dimen name="coinMargin">2dp</dimen>
 </resources>

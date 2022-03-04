@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#030447"
+    android:background="@color/BG"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp" >
 
         <TextView
             android:id="@+id/text_view_p1"
@@ -18,7 +19,8 @@
             android:layout_height="wrap_content"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:text="Player 1: 0"
+            android:text="@string/player_1_0"
+            android:textColor="@color/white"
             android:textSize="20sp" />
 
         <TextView
@@ -30,17 +32,19 @@
             android:minWidth="0dp"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:text="Player 2: 0"
+            android:text="@string/player_2_0"
+            android:textColor="@color/white"
             android:textSize="20sp" />
 
         <Button
             android:id="@+id/button_reset"
+            android:tag="reset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="33dp"
-            android:text="reset" />
+            android:text="@string/reset"
+            android:backgroundTint="@color/resetButton"/>
 
     </RelativeLayout>
 
@@ -54,519 +58,582 @@
         android:columnCount="8"
         android:rowCount="8"
         android:stretchMode="columnWidth"
-        android:horizontalSpacing="@dimen/cellSpace"
-        android:verticalSpacing="@dimen/cellSpace" >
-
+        android:background="@color/boardBG">
 
         <Button
             android:id="@+id/button_00"
+            android:tag="00"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_01"
+            android:tag="01"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_02"
+            android:tag="02"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_03"
+            android:tag="03"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_04"
+            android:tag="04"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_05"
+            android:tag="05"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_06"
+            android:tag="06"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_07"
+            android:tag="07"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_10"
+            android:tag="10"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_11"
+            android:tag="11"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_12"
+            android:tag="12"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_13"
+            android:tag="13"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_14"
+            android:tag="14"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_15"
+            android:tag="15"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_16"
+            android:tag="16"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_17"
+            android:tag="17"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_20"
+            android:tag="20"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_21"
+            android:tag="21"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_22"
+            android:tag="22"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_23"
+            android:tag="23"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_24"
+            android:tag="24"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_25"
+            android:tag="25"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_26"
+            android:tag="26"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_27"
+            android:tag="27"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_30"
+            android:tag="30"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_31"
+            android:tag="31"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_32"
+            android:tag="32"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_33"
+            android:tag="33"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_34"
+            android:tag="34"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_35"
+            android:tag="35"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_36"
+            android:tag="36"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_37"
+            android:tag="37"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_40"
+            android:tag="40"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_41"
+            android:tag="41"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_42"
+            android:tag="42"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_43"
+            android:tag="43"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_44"
+            android:tag="44"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_45"
+            android:tag="45"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_46"
+            android:tag="46"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_47"
+            android:tag="47"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_50"
+            android:tag="50"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_51"
+            android:tag="51"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_52"
+            android:tag="52"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_53"
+            android:tag="53"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_54"
+            android:tag="54"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_55"
+            android:tag="55"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_56"
+            android:tag="56"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_57"
+            android:tag="57"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_60"
+            android:tag="60"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_61"
+            android:tag="61"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
-            android:insetBottom="0dp" />
+            android:insetBottom="0dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <Button
             android:id="@+id/button_62"
+            android:tag="62"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_63"
+            android:tag="63"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_64"
+            android:tag="64"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_65"
+            android:tag="65"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_66"
+            android:tag="66"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_67"
+            android:tag="67"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_70"
+            android:tag="70"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_71"
+            android:tag="71"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_72"
+            android:tag="72"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_73"
+            android:tag="73"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_74"
+            android:tag="74"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_75"
+            android:tag="75"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_76"
+            android:tag="76"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
         <Button
             android:id="@+id/button_77"
+            android:tag="77"
             android:layout_width="@dimen/boxSize"
             android:layout_height="@dimen/boxSize"
-            android:layout_weight="1"
+            app:backgroundTint="@null"
             android:insetTop="0dp"
             android:insetBottom="0dp" />
 
