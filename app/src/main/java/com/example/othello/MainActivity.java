@@ -10,11 +10,32 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     final private Button[][] buttons = new Button[8][8];
     private OthelloCell [][] board;
-    private boolean player1Turn = true;
+    private boolean player1Turn;
 
     // Use these to show the current scores
     private TextView textViewPlayer1;
     private TextView textViewPlayer2;
+
+    private void setInitialState() {
+        board[3][3].playIt();
+        board[3][3].setBlack(true);
+        buttons[3][3].setBackgroundResource(R.drawable.black_circle);
+        board[4][4].playIt();
+        board[4][4].setBlack(true);
+        buttons[4][4].setBackgroundResource(R.drawable.black_circle);
+        board[4][3].playIt();
+        board[4][3].setBlack(false);
+        buttons[4][3].setBackgroundResource(R.drawable.white_circle);
+        board[3][4].playIt();
+        board[3][4].setBlack(false);
+        buttons[3][4].setBackgroundResource(R.drawable.white_circle);
+
+        // Initial scores
+        textViewPlayer1.setText("Black: " + 2);
+        textViewPlayer2.setText("White: " + 2);
+
+        player1Turn = false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +58,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 board[i][j] = new OthelloCell(i,j); // Meaning, this button hasn't been set yet
             }
         }
-        board[3][3].playIt();
-        board[3][3].setBlack(true);
-        buttons[3][3].setBackgroundResource(R.drawable.black_circle);
-        board[4][4].playIt();
-        board[4][4].setBlack(true);
-        buttons[4][4].setBackgroundResource(R.drawable.black_circle);
-        board[4][3].playIt();
-        board[4][3].setBlack(false);
-        buttons[4][3].setBackgroundResource(R.drawable.white_circle);
-        board[3][4].playIt();
-        board[3][4].setBlack(false);
-        buttons[3][4].setBackgroundResource(R.drawable.white_circle);
 
+        setInitialState();
 
         Button buttonReset = findViewById(R.id.button_reset);
         buttonReset.setOnClickListener(v -> {
@@ -59,18 +69,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     board[i][j].resetIt(); // This button hasn't been set yet
                 }
             }
-            board[3][3].playIt();
-            board[3][3].setBlack(true);
-            buttons[3][3].setBackgroundResource(R.drawable.black_circle);
-            board[4][4].playIt();
-            board[4][4].setBlack(true);
-            buttons[4][4].setBackgroundResource(R.drawable.black_circle);
-            board[4][3].playIt();
-            board[4][3].setBlack(false);
-            buttons[4][3].setBackgroundResource(R.drawable.white_circle);
-            board[3][4].playIt();
-            board[3][4].setBlack(false);
-            buttons[3][4].setBackgroundResource(R.drawable.white_circle);
+
+            setInitialState();
         });
     }
 
@@ -84,14 +84,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             playAndFlipTiles(v,x,y);
             player1Turn = !player1Turn;
         }
-        countScoreAnddrawScoreBoard();
+        countScoreAndDrawScoreBoard();
     }
 /*******************************************************************************************************************************************/
 
     /**
      *  Checks to see if a valid move can be made at the indicated OthelloCell,
      *  for the given player.
-     * @param view
+     *  //@param view
      *  @param  xt      The horizontal coordinate value in the board.
      *  @param  yt      The vertical coordinate value in the board.
      *  @return         Returns true if a valid move can be made for this player at
@@ -229,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             else{
                 buttons[xt][yt].setBackgroundResource(R.drawable.white_circle);
             }
-            System.out.println("\nfliped\n");
+            System.out.println("\nflipped\n");
             xt+=i;
             yt+=j;
         }
@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      *  of the board.  Also prints whether it is "BLACK'S TURN" or "WHITE'S TURN"
      *  or "GAME OVER".
      */
-    public void countScoreAnddrawScoreBoard ( )
+    public void countScoreAndDrawScoreBoard ( )
     {
         int whiteCount = 0, blackCount = 0;
 
@@ -267,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     *  A helper method for countScoreAnddrawScoreBoard.  Draws the scores
+     *  A helper method for countScoreAndDrawScoreBoard.  Draws the scores
      *  and messages.
      *  @param  whiteCount      The current count of the white pieces on the board.
      *  @param  blackCount      The current count of the black pieces on the board.
@@ -275,6 +275,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void drawScoresAndMessages(int whiteCount, int blackCount)
     {
         //TODO: Update the TextView
+        textViewPlayer1.setText("Black: " + whiteCount);
+        textViewPlayer2.setText("White: " + blackCount);
     }
 
     /**
@@ -368,8 +370,8 @@ class OthelloCell{
     /**
      *
      */
-    public void resetIt(){
-        played = true;
+    public void resetIt() {
+        played = false;
     }
 
     /**
