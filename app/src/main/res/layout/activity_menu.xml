@@ -5,6 +5,15 @@
     android:padding="50dp"
     android:background="@color/BG">
 
+    <TextView
+        android:id="@+id/menuHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Othello"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:textAlignment="center"/>
+
     // TODO: Change this image to a better one later
     <ImageView
         android:id="@+id/menuBoard"
@@ -12,7 +21,8 @@
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
-        android:src="@mipmap/menu_foreground" />
+        android:src="@mipmap/menu_foreground"
+        android:layout_below="@id/menuHeading"/>
 
     <Button
         android:id="@+id/singlePlayerButton"

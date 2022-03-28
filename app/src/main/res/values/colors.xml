@@ -11,5 +11,5 @@
     <color name="BG">#93090E</color>
     <color name="boardBG">#B0FFC107</color>
     <color name="resetButton">#4CAF50</color>
-    <color name="menuButton">FF018786</color>
+    <color name="menuButton">#FF018786</color>
 </resources>
