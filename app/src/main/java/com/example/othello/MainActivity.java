@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             board[3][4].playIt();
             board[3][4].setBlack(false);
             buttons[3][4].setBackgroundResource(R.drawable.white_circle);
+            player1Turn=true;
         });
     }
 
