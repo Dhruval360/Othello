@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" android:layout_height="fill_parent"
+    android:id="@+id/menuContainer" android:orientation="horizontal"
+    android:padding="50dp"
+    android:background="@color/BG">
+
+    // TODO: Change this image to a better one later
+    <ImageView
+        android:id="@+id/menuBoard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:src="@mipmap/menu_foreground" />
+
+    <Button
+        android:id="@+id/singlePlayerButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/menuBoard"
+        android:textSize="26sp"
+        android:text="Single Player"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/twoPlayerButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/singlePlayerButton"
+        android:textSize="26sp"
+        android:text="Two Player"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/optionsButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/twoPlayerButton"
+        android:textSize="26sp"
+        android:text="Options"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/howToPlay"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/optionsButton"
+        android:textSize="26sp"
+        android:text="How To Play?"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/statsButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/howToPlay"
+        android:textSize="26sp"
+        android:text="Statistics"
+        android:textAllCaps="false"/>
+
+</RelativeLayout>
