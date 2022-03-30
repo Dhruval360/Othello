@@ -2,6 +2,7 @@ package com.example.othello;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.pm.ActivityInfo;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView textViewPlayer1;
     private TextView textViewPlayer2;
     private TextView textViewTurn;
+
+    // Set ture if playing against AI
+    private boolean aiGame = false;
 
     private void setInitialState() {
 
@@ -92,21 +96,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final int pos = Integer.parseInt(tag);
         int x = pos/10;
         int y = pos%10;
+        if(aiGame){
+            if(isValidMove(x, y)){
+                playAndFlipTiles(v,x,y);
+                if(player1Turn) textViewTurn.setText("White's Turn");
+                else textViewTurn.setText("Black's Turn");
+                player1Turn = !player1Turn;
+            }
+        }
+        else{
         if(isValidMove(x, y)){
             playAndFlipTiles(v,x,y);
             if(player1Turn) textViewTurn.setText("White's Turn");
             else textViewTurn.setText("Black's Turn");
             player1Turn = !player1Turn;
-        }
+        }}
         countScoreAndDrawScoreBoard();
         markValidMoves();
     }
+
+//    void minmax(int depth){
+//        System.out.println(depth);
+//        if(depth==0) return;
+//
+//        if()
+//    }
+//
+//    void minimaxChoice(int depth){
+//        minimax(depth);
+//
+//    }
 
     /**
      *  Marks all the valid moves for the given player.
      */
     void markValidMoves() {
         // TODO
+
+
+
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if(board[i][j].hasBeenPlayed()) continue;
@@ -205,8 +233,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void playAndFlipTiles (View v, int x, int y) {
         if (player1Turn) v.setBackgroundResource(R.drawable.black_circle);
         else v.setBackgroundResource(R.drawable.white_circle);
-        board[x][y].setBlack(player1Turn);
-        board[x][y].playIt();
+
+        if(aiGame){
+                // Pass to AI
+                // returns X and Y
+        }
+        else{
+            board[x][y].setBlack(player1Turn);
+            board[x][y].playIt();
+        }
 
         for (int i=-1; i<=1; i++) {
             for (int j=-1; j<=1; j++) {
