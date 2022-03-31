@@ -9,14 +9,12 @@ public class GameModel {
     public GameModel(){
         System.out.println("initialize class");
     }
+
     /**
      *  Marks all the valid moves for the given player.
      */
     void markValidMoves() {
         // TODO
-
-
-
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if(board[i][j].hasBeenPlayed()) continue;

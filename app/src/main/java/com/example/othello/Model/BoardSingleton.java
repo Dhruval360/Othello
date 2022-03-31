@@ -21,7 +21,6 @@ public class BoardSingleton {
         if(boardObj==null){
             boardObj = new BoardSingleton();
         }
-
         return boardObj;
     }
 
