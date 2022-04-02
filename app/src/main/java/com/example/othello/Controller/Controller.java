@@ -1,44 +1,99 @@
-package com.example.othello;
+package com.example.othello.Controller;
 
-import androidx.appcompat.app.AppCompatActivity;
-import android.content.pm.ActivityInfo;
-
-import android.os.Bundle;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.othello.Controller.IOthelloActivity;
-import com.example.othello.Controller.OthelloActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class GameActivity extends AppCompatActivity implements View.OnClickListener {
-    final private Button[][] buttons = new Button[8][8];
-    private OthelloCell [][] board;
-    private boolean player1Turn;
+import com.example.othello.Models.GameModel;
+//import com.example.othello.Models.GameModel;
+import com.example.othello.Models.OthelloCell;
+import com.example.othello.R;
+import com.example.othello.Views.GameActivity;
 
+
+public class Controller extends AppCompatActivity {
+    // From the GameActivity
     // Use these to show the current scores
     private TextView textViewPlayer1;
     private TextView textViewPlayer2;
     private TextView textViewTurn;
 
-    // Set ture if playing against AI
-    private boolean aiGame = false;
+    private static Controller controllerObj = new Controller();
+    private GameModel gameModel = GameModel.getInstance();
 
-    private void setInitialState() {
+    // gameMode keeps track of which mode the user is playing in
+    protected int gameMode = 1;
 
+    /**
+     * Constructor that initializes the gameMode to 1
+     * gameMode = 1 = Multiplayer on local phone
+     */
+    private Controller(){ }
+
+    /**
+     * Controller is a singleton class
+     */
+    public static Controller getInstance() { return controllerObj; }
+
+//    /**
+//     * This method is invoked when the game is started. It initializes
+//     * the board and starts the game based on the gameMode selected
+//     */
+//    public void onStartGame(){
+//        // Creating the board
+//        GameModel bObj = GameModel.getInstance();
+//
+//
+//        if(gameMode==1){
+//
+//        }
+//        else if(gameMode==2){
+//
+//        }
+//        else{
+//
+//        }
+//    }
+
+//    /**
+//     * Responds to button click. Plays a tile if the move is valid.
+//     */
+//    public void onButtonClick(){
+//
+//    }
+//
+//    public void aiGameMode(){
+//
+//    }
+
+    public void resetGame() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                this.gameModel.buttons[i][j].setBackgroundResource(R.drawable.empty_cell);
+                this.gameModel.board[i][j].resetIt(); // This button hasn't been set yet
+            }
+        }
+
+        this.setInitState();
+    }
+
+    private void setInitState() {
         // Setting the center circles
-        board[3][3].playIt();
-        board[3][3].setBlack(true);
-        buttons[3][3].setBackgroundResource(R.drawable.black_circle);
-        board[4][4].playIt();
-        board[4][4].setBlack(true);
-        buttons[4][4].setBackgroundResource(R.drawable.black_circle);
-        board[4][3].playIt();
-        board[4][3].setBlack(false);
-        buttons[4][3].setBackgroundResource(R.drawable.white_circle);
-        board[3][4].playIt();
-        board[3][4].setBlack(false);
-        buttons[3][4].setBackgroundResource(R.drawable.white_circle);
+        this.gameModel.board[3][3].playIt();
+        this.gameModel.board[3][3].setBlack(true);
+        this.gameModel.buttons[3][3].setBackgroundResource(R.drawable.black_circle);
+        this.gameModel.board[4][4].playIt();
+        this.gameModel.board[4][4].setBlack(true);
+        this.gameModel.buttons[4][4].setBackgroundResource(R.drawable.black_circle);
+        this.gameModel.board[4][3].playIt();
+        this.gameModel.board[4][3].setBlack(false);
+        this.gameModel.buttons[4][3].setBackgroundResource(R.drawable.white_circle);
+        this.gameModel.board[3][4].playIt();
+        this.gameModel.board[3][4].setBlack(false);
+        this.gameModel.buttons[3][4].setBackgroundResource(R.drawable.white_circle);
 
         // Initial scores
         textViewPlayer1.setText("Black: 2");
@@ -46,89 +101,65 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         // Initial Turn
         textViewTurn.setText("White's Turn");
-        player1Turn = false;
+        gameModel.player1Turn = false;
 
         // Mark Initial Valid moves
-        buttons[2][3].setBackgroundResource(R.drawable.green_dot);
-        buttons[5][4].setBackgroundResource(R.drawable.green_dot);
-        buttons[3][2].setBackgroundResource(R.drawable.green_dot);
-        buttons[4][5].setBackgroundResource(R.drawable.green_dot);
+        gameModel.buttons[2][3].setBackgroundResource(R.drawable.green_dot);
+        gameModel.buttons[5][4].setBackgroundResource(R.drawable.green_dot);
+        gameModel.buttons[3][2].setBackgroundResource(R.drawable.green_dot);
+        gameModel.buttons[4][5].setBackgroundResource(R.drawable.green_dot);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
-        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // Prevent screen rotation
-
-        textViewPlayer1 = findViewById(R.id.text_view_p1);
-        textViewPlayer2 = findViewById(R.id.text_view_p2);
-        textViewTurn = findViewById(R.id.text_view_turn);
-
-        board = new OthelloCell[8][8];
+    public void initGame(Button[][] buttons, TextView textViewPlayer1, TextView textViewPlayer2, TextView textViewTurn) {
+        this.textViewPlayer1 = textViewPlayer1;
+        this.textViewPlayer2 = textViewPlayer2;
+        this.textViewTurn = textViewTurn;
+        this.gameModel.buttons = buttons;
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                String buttonID = "button_" + i + j;
-                int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
-                buttons[i][j] = findViewById(resID);
-                buttons[i][j].setOnClickListener(this);
-                buttons[i][j].setBackgroundResource(R.drawable.empty_cell);
-                board[i][j] = new OthelloCell(i,j); // Meaning, this button hasn't been set yet
+                buttons[i][j].setOnClickListener(v -> {onClick(v);});
+                this.gameModel.board[i][j] = new OthelloCell(i,j); // Meaning, this button hasn't been set yet
+                this.gameModel.buttons[i][j].setBackgroundResource(R.drawable.empty_cell);
+                this.gameModel.board[i][j].resetIt(); // This button hasn't been set yet
             }
         }
 
-        setInitialState();
-
-        // Reset Button
-        Button buttonReset = findViewById(R.id.button_reset);
-        buttonReset.setOnClickListener(v -> {
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                    buttons[i][j].setBackgroundResource(R.drawable.empty_cell);
-                    board[i][j].resetIt(); // This button hasn't been set yet
-                }
-            }
-            setInitialState();
-        });
+        this.setInitState();
     }
 
-    @Override
     public void onClick(View v) {
         final String tag = ((Button) v).getTag().toString();
         final int pos = Integer.parseInt(tag);
         int x = pos/10;
         int y = pos%10;
-        if(aiGame){
-            if(isValidMove(x, y)){
+        if(false){
+            if(isValidMove(x, y)) {
                 playAndFlipTiles(v,x,y);
-                if(player1Turn) textViewTurn.setText("White's Turn");
-                else textViewTurn.setText("Black's Turn");
-                player1Turn = !player1Turn;
+//                if(gameModel.player1Turn) textViewTurn.setText("White's Turn");
+//                else textViewTurn.setText("Black's Turn");
+                gameModel.player1Turn = !gameModel.player1Turn;
             }
         }
         else{
-        if(isValidMove(x, y)){
-            playAndFlipTiles(v,x,y);
-            if(player1Turn) textViewTurn.setText("White's Turn");
-            else textViewTurn.setText("Black's Turn");
-            player1Turn = !player1Turn;
-        }}
-        countScoreAndDrawScoreBoard();
+            if(isValidMove(x, y)){
+                playAndFlipTiles(v,x,y);
+                if(gameModel.player1Turn) textViewTurn.setText("White's Turn");
+                else textViewTurn.setText("Black's Turn");
+                gameModel.player1Turn = !gameModel.player1Turn;
+            }}
         markValidMoves();
+        String[] textVals = countScoreAndDrawScoreBoard();
+        textViewPlayer1.setText(textVals[0]);
+        textViewPlayer2.setText(textVals[1]);
+        if(textVals[2] != null) textViewTurn.setText(textVals[2]);
     }
 
-//    void minmax(int depth){
-//        System.out.println(depth);
-//        if(depth==0) return;
-//
-//        if()
-//    }
-//
-//    void minimaxChoice(int depth){
-//        minimax(depth);
-//
-//    }
+    // Doesn't work
+    public void switchView(View buttonId) {
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
+    }
 
     /**
      *  Marks all the valid moves for the given player.
@@ -140,9 +171,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if(board[i][j].hasBeenPlayed()) continue;
-                if(isPlayable(i, j))  buttons[i][j].setBackgroundResource(R.drawable.green_dot);
-                else buttons[i][j].setBackgroundResource(R.drawable.empty_cell);
+                if(gameModel.board[i][j].hasBeenPlayed()) continue;
+                if(isPlayable(i, j))  gameModel.buttons[i][j].setBackgroundResource(R.drawable.green_dot);
+                else gameModel.buttons[i][j].setBackgroundResource(R.drawable.empty_cell);
             }
         }
     }
@@ -168,7 +199,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      *                  this position, false otherwise.
      */
     public boolean isValidMove(int xt, int yt) {
-        if (board[xt][yt].hasBeenPlayed()) { //Cant place on top of a played board
+        if (gameModel.board[xt][yt].hasBeenPlayed()) { //Cant place on top of a played board
             return false;
         }
 
@@ -205,21 +236,21 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         xt+=i;
         yt+=j;
         if(xt >= 0 && xt <= 7 && yt >= 0 && yt <= 7) {
-            if (!board[xt][yt].hasBeenPlayed()) {
+            if (!gameModel.board[xt][yt].hasBeenPlayed()) {
                 System.out.println("Invalid move");
                 return false;
             }
-            else if (board[xt][yt].getBlackStatus()==player1Turn) {
+            else if (gameModel.board[xt][yt].getBlackStatus()== gameModel.player1Turn) {
                 System.out.println("Invalid move");
                 return false;
             }
             else {
                 while(xt >= 0 && xt <= 7 && yt >= 0 && yt <= 7) {
-                    if (board[xt][yt].hasBeenPlayed() &&board[xt][yt].getBlackStatus()==player1Turn) {
+                    if (gameModel.board[xt][yt].hasBeenPlayed() && gameModel.board[xt][yt].getBlackStatus()== gameModel.player1Turn) {
                         System.out.println("\nValid move\n");
                         return true;
                     }
-                    else if (!board[xt][yt].hasBeenPlayed()) return false;
+                    else if (!gameModel.board[xt][yt].hasBeenPlayed()) return false;
                     xt+=i;
                     yt+=j;
                 }
@@ -234,16 +265,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      *  current cell.
      */
     public void playAndFlipTiles (View v, int x, int y) {
-        if (player1Turn) v.setBackgroundResource(R.drawable.black_circle);
+        if (gameModel.player1Turn) v.setBackgroundResource(R.drawable.black_circle);
         else v.setBackgroundResource(R.drawable.white_circle);
 
-        if(aiGame){
-                // Pass to AI
-                // returns X and Y
+        if(false){
+            // Pass to AI
+            // returns X and Y
         }
         else{
-            board[x][y].setBlack(player1Turn);
-            board[x][y].playIt();
+            gameModel.board[x][y].setBlack(gameModel.player1Turn);
+            gameModel.board[x][y].playIt();
         }
 
         for (int i=-1; i<=1; i++) {
@@ -277,11 +308,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     {
         xt+=i;
         yt+=j;
-        while(board[xt][yt].getBlackStatus() != player1Turn) { // As long as the tile is not equal to the players loop through and flip it
-            board[xt][yt].setBlack(player1Turn);
-            board[xt][yt].playIt();
-            if(player1Turn) buttons[xt][yt].setBackgroundResource(R.drawable.black_circle);
-            else buttons[xt][yt].setBackgroundResource(R.drawable.white_circle);
+        while(gameModel.board[xt][yt].getBlackStatus() != gameModel.player1Turn) { // As long as the tile is not equal to the players loop through and flip it
+            gameModel.board[xt][yt].setBlack(gameModel.player1Turn);
+            gameModel.board[xt][yt].playIt();
+            if(gameModel.player1Turn) gameModel.buttons[xt][yt].setBackgroundResource(R.drawable.black_circle);
+            else gameModel.buttons[xt][yt].setBackgroundResource(R.drawable.white_circle);
             System.out.println("\nflipped\n");
             xt += i;
             yt += j;
@@ -295,18 +326,18 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      *  of the board.  Also prints whether it is "BLACK'S TURN" or "WHITE'S TURN"
      *  or "GAME OVER".
      */
-    public void countScoreAndDrawScoreBoard() {
+    public String[] countScoreAndDrawScoreBoard() {
         int whiteCount = 0, blackCount = 0;
 
         for(int x = 0; x<8; x++) {
             for(int y = 0; y<8; y++) {
-                if (board[x][y].hasBeenPlayed()) {
-                    if (board[x][y].getBlackStatus()) blackCount++;
+                if (gameModel.board[x][y].hasBeenPlayed()) {
+                    if (gameModel.board[x][y].getBlackStatus()) blackCount++;
                     else whiteCount++;
                 }
             }
         }
-        drawScoresAndMessages(whiteCount, blackCount);
+        return drawScoresAndMessages(whiteCount, blackCount);
     }
 
     /**
@@ -315,17 +346,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
      *  @param  whiteCount      The current count of the white pieces on the board.
      *  @param  blackCount      The current count of the black pieces on the board.
      */
-    public void drawScoresAndMessages(int whiteCount, int blackCount) {
-        textViewPlayer1.setText("Black: " + whiteCount);
-        textViewPlayer2.setText("White: " + blackCount);
+    public String[] drawScoresAndMessages(int whiteCount, int blackCount) {
+        String turnText = null;
 
         if(checkTurnAndGameOver()) { // Game Over
             if(blackCount == whiteCount) {
-                if(whiteCount > blackCount) textViewTurn.setText("White Wins!");
-                else if(whiteCount < blackCount) textViewTurn.setText("Black Wins!");
-                else textViewTurn.setText("Draw!");
+                if(whiteCount > blackCount) turnText = "White Wins!";
+                else if(whiteCount < blackCount) turnText = "Black Wins!";
+                else turnText = "Draw!";
             }
         }
+        return new String[]{"Black: " + blackCount, "White: " + whiteCount, turnText};
     }
 
     /**
@@ -348,11 +379,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         for (int i=0; i<8; i++) {
             for (int j=0; j<8; j++) {
                 if (isValidMove(i, j)) {
-                    player1Turn = false;
+                    gameModel.player1Turn = false;
                     return false;
                 }
             }
         }
         return true;
     }
+
 }

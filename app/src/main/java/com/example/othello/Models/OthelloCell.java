@@ -1,4 +1,4 @@
-package com.example.othello;
+package com.example.othello.Models;
 
 /**
  * Represents a single cell in the game of Othello.  By default, a cell is black, and
@@ -18,9 +18,9 @@ public class OthelloCell {
      */
     public OthelloCell(int i, int j) {
         played = false;
+        black = true;
         x = i;
         y = j;
-        black = true;
     }
 
     /**
