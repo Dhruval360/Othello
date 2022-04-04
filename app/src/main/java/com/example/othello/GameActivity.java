@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.othello.Controller.IOthelloActivity;
+import com.example.othello.Controller.OthelloActivity;
+
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
     final private Button[][] buttons = new Button[8][8];
     private OthelloCell [][] board;
