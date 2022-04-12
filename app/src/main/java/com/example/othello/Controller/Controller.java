@@ -157,4 +157,8 @@ public class Controller{ //extends AppCompatActivity {
        this.gameMode = mode;
        System.out.println(mode);
     }
+
+    public void getStatistics(){
+        return;
+    }
 }
