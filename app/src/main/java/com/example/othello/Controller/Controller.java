@@ -1,7 +1,7 @@
 package com.example.othello.Controller;
 
-//import android.content.Context;
-//import android.content.Intent;
+import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import com.example.othello.R;
 import android.widget.Button;
@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import com.example.othello.Models.GameModel;
 import com.example.othello.Models.OthelloCell;
-//import com.example.othello.Views.GameActivity;
+import com.example.othello.Views.GameActivity;
 
-public class Controller { //extends AppCompatActivity {
+public class Controller{ //extends AppCompatActivity {
     // From the GameActivity
     // Use these to show the current scores
     private TextView textViewPlayer1;
@@ -153,8 +153,8 @@ public class Controller { //extends AppCompatActivity {
     }
 
 //    // Doesn't work
-//    public void switchView(Context ctx) {
-//        Intent intent = new Intent(ctx, GameActivity.class);
-//        startActivity(intent);
-//    }
+    public void setGameMode(int mode) {
+       this.gameMode = mode;
+       System.out.println(mode);
+    }
 }
