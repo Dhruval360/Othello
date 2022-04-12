@@ -36,7 +36,6 @@ public class MenuActivity extends AppCompatActivity {
 
         Button stats = findViewById(R.id.statsButton);
         stats.setOnClickListener((v ->{
-            controllerObj.getStatistics();
             Intent statsIntent = new Intent(this, StatsActivity.class);
             startActivity(statsIntent);
         }));

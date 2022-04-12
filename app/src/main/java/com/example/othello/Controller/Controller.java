@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.othello.Models.GameModel;
 import com.example.othello.Models.OthelloCell;
+import com.example.othello.Models.Stats;
 import com.example.othello.Views.GameActivity;
 
 public class Controller{ //extends AppCompatActivity {
@@ -22,6 +23,7 @@ public class Controller{ //extends AppCompatActivity {
 
     private static final Controller controllerObj = new Controller();
     private final GameModel gameModel = GameModel.getInstance();
+    private final Stats statistics = new Stats();
 
     // gameMode keeps track of which mode the user is playing in
     protected int gameMode = 1;

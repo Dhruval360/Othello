@@ -25,6 +25,8 @@ public class StatsActivity extends AppCompatActivity {
         if(getSupportActionBar() != null)
             getSupportActionBar().hide(); // Hides the top bar which displays the app's name
 
+        controllerObj.getStatistics();
+
         //TODO: Make the UI for the Leaderboard
         for (int i = 0; i < 10; i++) {
 //            String buttonID = "button_" + i;
