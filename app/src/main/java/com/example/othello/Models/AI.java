@@ -60,18 +60,20 @@ public class AI {
 
     public int[][] getValidMoves(boolean bTurn)
     {
-        int[][] validMoves = new int[1024][1024];
+        int len = 0;
+        int[][] validMoves = new int[64][64];
         for(int i = 0; i < 8; i++)
         {
             for(int j = 0; j < 8; j++)
             {
                 if(isValidMove(i,j,bTurn))
-                {	int len = lenvalidmoves++;
+                {	len++;
                     validMoves[len][0] = i;
                     validMoves[len][1] = j;
                 }
             }
         }
+        lenvalidmoves = len;
         return validMoves;
     }
 

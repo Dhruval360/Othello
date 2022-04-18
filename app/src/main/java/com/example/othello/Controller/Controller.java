@@ -151,10 +151,10 @@ public class Controller { //extends AppCompatActivity {
                 int[] move = ai.minimaxChoice(this.gameModel.board);
                 x = move[0];
                 y = move[1];
-
+//
                 System.out.println("AI x : "+x+" AI y : "+y);
-
-                this.gameModel.playAndFlipTiles(v, x, y);
+//
+                this.gameModel.playAndFlipTiles(this.gameModel.buttons[x][y], x, y);
                 if (gameModel.player1Turn) textViewTurn.setText("White's Turn");
                 else textViewTurn.setText("Black's Turn");
                 gameModel.player1Turn = !gameModel.player1Turn;

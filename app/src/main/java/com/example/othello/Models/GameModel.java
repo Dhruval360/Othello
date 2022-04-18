@@ -148,6 +148,7 @@ public class GameModel{
      *  current cell.
      */
     public void playAndFlipTiles (View v, int x, int y) {
+        System.out.println("AI playAndFlipTiles: " + x + ", " + y);
         if (player1Turn) v.setBackgroundResource(R.drawable.black_circle);
         else v.setBackgroundResource(R.drawable.white_circle);
 
