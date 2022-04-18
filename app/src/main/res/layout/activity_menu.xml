@@ -18,19 +18,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Othello"
+        android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="40sp"
-        android:textAlignment="center"/>
+        android:textSize="40sp" />
 
     // TODO: Change this image to a better one later
+
     <ImageView
         android:id="@+id/menuBoard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
+        android:layout_below="@id/menuHeading"
         android:adjustViewBounds="true"
-        android:src="@mipmap/menu_foreground"
-        android:layout_below="@id/menuHeading"/>
+        android:scaleType="centerCrop"
+        android:src="@mipmap/menu_foreground" />
 
     <Button
         android:id="@+id/singlePlayerButton"
@@ -73,9 +74,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/howToPlay"
-        android:textSize="26sp"
         android:text="Statistics"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false"
+        android:textSize="26sp" />
 
 </RelativeLayout>
 </ScrollView>

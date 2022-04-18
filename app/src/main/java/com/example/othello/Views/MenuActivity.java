@@ -21,6 +21,15 @@ public class MenuActivity extends AppCompatActivity {
         // Clicking on twoPlayerButton will start the game
         Button twoPlayerButton = findViewById(R.id.twoPlayerButton);
         twoPlayerButton.setOnClickListener(v -> {
+                controllerObj.setGameMode(0); // temp fix
+//            controllerObj.switchView(this);
+            Intent intent = new Intent(this, GameActivity.class);
+            startActivity(intent);
+        });
+
+        Button singlePlayerButton = findViewById(R.id.singlePlayerButton);
+        singlePlayerButton.setOnClickListener(v -> {
+            controllerObj.setGameMode(1); // temp fix
 //            controllerObj.switchView(this);
             Intent intent = new Intent(this, GameActivity.class);
             startActivity(intent);
