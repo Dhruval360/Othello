@@ -4,21 +4,25 @@ import com.example.othello.Models.OthelloCell;
 public class AI {
     private int bestx;
     private int besty;
-    private int lenvalidmoves;
-    private OthelloCell [][] board;
-    private int x, y;
-    private boolean blackTurn;
+    //private int lenvalidmoves;
+    //private OthelloCell [][] board;
+    //private int x, y;
+    private boolean player1turn;
+    private int maxdepth;
     public AI(){
-        blackTurn = true;
-        lenvalidmoves = 0;
+        //blackTurn = true;
+        //lenvalidmoves = 0;
         bestx = -1;
         besty = -1;
+        maxdepth = 3;
     }
-    public int[] minimaxChoice(OthelloCell [][]modelboard)
+    public int[] minimaxChoice(OthelloCell [][]modelboard, boolean player1turn)
     {
-        int depth=1;
-        blackTurn = true;
-        board = new OthelloCell[8][8];
+        int depth=3;
+        boolean blackTurn = !player1turn;
+        this.player1turn = player1turn;
+        OthelloCell [][] board = new OthelloCell[8][8];
+        //lenvalidmoves = 0;
         for(int i = 0; i < 8; i++)
         {
             for(int j = 0; j< 8; j++)
@@ -26,39 +30,81 @@ public class AI {
                 board[i][j] = modelboard[i][j].clones();
             }
         }
-        minimax(depth,blackTurn);
+        minimax(board,depth,blackTurn);
         int [] ans = new int[2];
         ans[0] = bestx;
         ans[1] = besty;
         return ans;
     }
 
-    public int minimax(int depth, boolean bTurn)
+    public int minimax(OthelloCell [][]board,int depth, boolean bTurn)
     {
-        int score = getScore();
+        int score = getScore(board);
         if(depth == 0)
         {
             return score;
         }
-        int bestVal = -999999;
-        int [][] moves = getValidMoves(bTurn);
-        for(int i = 0; i < lenvalidmoves; i++)
-        {
-            x = moves[i][0];
-            y = moves[i][1];
-            playAndFlipTiles();
-            int val = minimax(depth-1,!bTurn);
-            if(val>bestVal)
+        if(bTurn){
+            int bestVal = -999999;
+            int [][] moves = getValidMoves(board,bTurn);
+            for(int []move : moves)
             {
-                bestVal = val;
-                bestx = x;
-                besty = y;
+                int x = move[0];
+                int y = move[1];
+                OthelloCell [][] tempboard = new OthelloCell[8][8];
+                for(int blah = 0; blah < 8; blah++)
+                {
+                    for(int bleh = 0; bleh< 8; bleh++)
+                    {
+                        tempboard[blah][bleh] = board[blah][bleh].clones();
+                    }
+                }
+                playAndFlipTiles(tempboard,x,y,bTurn);
+                int val = minimax(tempboard,depth-1,!bTurn);
+                if(val>bestVal)
+                {
+                    bestVal = val;
+                    //if((depth == maxdepth)&&(player1turn == bTurn)){
+                        bestx = x;
+                        besty = y;
+                    //}
+
+                }
             }
+            return bestVal;
         }
-        return score;
+        else{
+            int bestVal = 999999;
+            int [][] moves = getValidMoves(board,bTurn);
+            for(int []move : moves)
+            {
+                int x = move[0];
+                int y = move[1];
+                OthelloCell [][] tempboard = new OthelloCell[8][8];
+                for(int blah = 0; blah < 8; blah++)
+                {
+                    for(int bleh = 0; bleh< 8; bleh++)
+                    {
+                        tempboard[blah][bleh] = board[blah][bleh].clones();
+                    }
+                }
+                playAndFlipTiles(tempboard,x,y,bTurn);
+                int val = minimax(tempboard,depth-1,!bTurn);
+                if(val<bestVal)
+                {
+                    bestVal = val;
+                    //if((depth == maxdepth)&&(player1turn == bTurn)){
+                        bestx = x;
+                        besty = y;
+                    //}
+                }
+            }
+            return bestVal;
+        }
+
     }
 
-    public int[][] getValidMoves(boolean bTurn)
+    public int[][] getValidMoves(OthelloCell [][]board,boolean bTurn)
     {
         int len = 0;
         int[][] validMoves = new int[64][64];
@@ -66,18 +112,19 @@ public class AI {
         {
             for(int j = 0; j < 8; j++)
             {
-                if(isValidMove(i,j,bTurn))
-                {	len++;
+                if(isValidMove(board,i,j,bTurn))
+                {
                     validMoves[len][0] = i;
                     validMoves[len][1] = j;
+                    len++;
                 }
             }
         }
-        lenvalidmoves = len;
+        //lenvalidmoves = len;
         return validMoves;
     }
 
-    public int getScore() {
+    public int getScore(OthelloCell [][] board) {
         int whiteCount = 0, blackCount = 0;
 
         for (int x = 0; x < 8; x++) {
@@ -91,10 +138,10 @@ public class AI {
                 }
             }
         }
-        return (whiteCount - blackCount);
+        return -1 * (whiteCount - blackCount);
     }
 
-    public boolean isValidMove(int xt, int yt, boolean bTurn)
+    public boolean isValidMove(OthelloCell [][]board,int xt, int yt, boolean bTurn)
     {
         if (board[xt][yt].hasBeenPlayed()) //Cant place on top of a played board
         {
@@ -105,7 +152,7 @@ public class AI {
         {
             for (int j = -1; j <=1; j++)
             {
-                if (!(i==0&&j==0)&&directionValid(xt,yt,i,j,bTurn))
+                if (!(i==0&&j==0)&&directionValid(board,xt,yt,i,j,bTurn))
                 {
                     return true; ///If the direction is valid then return true
                 }
@@ -115,7 +162,7 @@ public class AI {
         return false;
     }
 
-    public boolean directionValid(int xt, int yt, int i, int j, boolean bTurn)
+    public boolean directionValid(OthelloCell [][]board,int xt, int yt, int i, int j, boolean bTurn)
     {
         xt+=i;
         yt+=j;
@@ -152,7 +199,7 @@ public class AI {
         return false;
     }
 
-    public void playAndFlipTiles ( )
+    public void playAndFlipTiles (OthelloCell [][]board,int x,int y,boolean blackTurn)
     {
         board[x][y].setBlack(blackTurn);
         board[x][y].playIt();
@@ -161,16 +208,16 @@ public class AI {
         {
             for (int j=-1; j<=1; j++)
             {
-                if (!(i==0&&j==0)&& directionValid(x,y,i,j,blackTurn))
+                if (!(i==0&&j==0)&& directionValid(board,x,y,i,j,blackTurn))
                 {
                     //System.out.println("Flip");
-                    flipAllInThatDirection(x,y,i,j);
+                    flipAllInThatDirection(board,x,y,i,j,blackTurn);
                 }
             }
         }
     }
 
-    public void flipAllInThatDirection(int xt, int yt, int i, int j)
+    public void flipAllInThatDirection(OthelloCell [][]board,int xt, int yt, int i, int j,boolean blackTurn)
     {
         xt+=i;
         yt+=j;

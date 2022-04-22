@@ -148,7 +148,7 @@ public class Controller { //extends AppCompatActivity {
                 gameModel.player1Turn = !gameModel.player1Turn;
 
 
-                int[] move = ai.minimaxChoice(this.gameModel.board);
+                int[] move = ai.minimaxChoice(this.gameModel.board,gameModel.player1Turn);
                 x = move[0];
                 y = move[1];
 //
