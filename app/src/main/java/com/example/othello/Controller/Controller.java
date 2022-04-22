@@ -177,11 +177,11 @@ public class Controller{ //extends AppCompatActivity {
         if (textVals[2] != null) textViewTurn.setText(textVals[2]);
     }
 
-//    // Doesn't work
-    public void setGameMode(int mode) {
-       this.gameMode = mode;
-       System.out.println(mode);
-    }
+////    // Doesn't work
+//    public void setGameMode(int mode) {
+//       this.gameMode = mode;
+//       System.out.println(mode);
+//    }
 
     public void getStatistics(){
         return;

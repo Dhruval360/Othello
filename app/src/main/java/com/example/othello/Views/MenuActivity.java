@@ -40,18 +40,16 @@ public class MenuActivity extends AppCompatActivity {
         singlePlayerButton.setOnClickListener(v -> {
             controllerObj.setGameMode(1); // temp fix
 //            controllerObj.switchView(this);
-// =======
             controllerObj.setGameMode(1);
-// >>>>>>> master
-//             Intent intent = new Intent(this, GameActivity.class);
-//             startActivity(intent);
-//         });
+             Intent intent = new Intent(this, GameActivity.class);
+             startActivity(intent);
+         });
 
 //         Button stats = findViewById(R.id.statsButton);
 //         stats.setOnClickListener((v ->{
 //             Intent statsIntent = new Intent(this, StatsActivity.class);
 //             startActivity(statsIntent);
-//         }));
+//         });
 
         // TODO: Implement similar onClickListeners for other buttons as well
     }

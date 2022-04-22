@@ -17,7 +17,7 @@ public class AI {
         //lenvalidmoves = 0;
         bestx = -1;
         besty = -1;
-        maxdepth = 5;
+        maxdepth = 3; // Needs to come from the user
     }
     public int[] minimaxChoice(OthelloCell [][]modelboard, boolean player1turn)
     {
