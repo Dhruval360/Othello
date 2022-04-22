@@ -2,6 +2,7 @@ package com.example.othello.Controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Pair;
 import android.view.View;
 import com.example.othello.R;
 import android.widget.Button;
@@ -150,9 +151,9 @@ public class Controller{ //extends AppCompatActivity {
                 gameModel.player1Turn = !gameModel.player1Turn;
 
 
-                int[] move = ai.minimaxChoice(this.gameModel.board,gameModel.player1Turn);
-                x = move[0];
-                y = move[1];
+                Pair<Integer, Integer> move = ai.minimaxChoice(this.gameModel.board,gameModel.player1Turn);
+                x = move.first;
+                y = move.second;
 //
                 System.out.println("AI x : "+x+" AI y : "+y);
 //
