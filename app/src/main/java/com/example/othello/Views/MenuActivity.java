@@ -26,31 +26,30 @@ public class MenuActivity extends AppCompatActivity {
             System.out.println(controllerObj);
         }
 
+        Button singlePlayerButton = findViewById(R.id.singlePlayerButton);
+        singlePlayerButton.setOnClickListener(v -> {
+            controllerObj.setGameMode(0); // temp fix
+//            controllerObj.switchView(this);
+             Intent intent = new Intent(this, GameActivity.class);
+             startActivity(intent);
+         });
+
         // Clicking on twoPlayerButton will start the game
         Button twoPlayerButton = findViewById(R.id.twoPlayerButton);
         twoPlayerButton.setOnClickListener(v -> {
-// <<<<<<< AIExp
-                controllerObj.setGameMode(0); // temp fix
+            controllerObj.setGameMode(1); // temp fix
 //            controllerObj.switchView(this);
             Intent intent = new Intent(this, GameActivity.class);
             startActivity(intent);
         });
 
-        Button singlePlayerButton = findViewById(R.id.singlePlayerButton);
-        singlePlayerButton.setOnClickListener(v -> {
-            controllerObj.setGameMode(1); // temp fix
-//            controllerObj.switchView(this);
-            controllerObj.setGameMode(1);
-             Intent intent = new Intent(this, GameActivity.class);
-             startActivity(intent);
-         });
 
+        // TODO: Implement similar onClickListeners for other buttons as well
 //         Button stats = findViewById(R.id.statsButton);
 //         stats.setOnClickListener((v ->{
 //             Intent statsIntent = new Intent(this, StatsActivity.class);
 //             startActivity(statsIntent);
 //         });
 
-        // TODO: Implement similar onClickListeners for other buttons as well
     }
 }

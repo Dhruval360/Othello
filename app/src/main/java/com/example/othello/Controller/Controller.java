@@ -21,22 +21,20 @@ public class Controller{ //extends AppCompatActivity {
     private TextView textViewPlayer1;
     private TextView textViewPlayer2;
     private TextView textViewTurn;
+    private int x, y;
 
     private static final Controller controllerObj = new Controller();
     private final GameModel gameModel = GameModel.getInstance();
     private final Stats statistics = new Stats();
 
-    // gameMode keeps track of which mode the user is playing in
+    // gameMode keeps track of which mode the user is playing in - Single Player (0) or Two Player (1)
     protected int gameMode;
 
     private AI ai;
-    public void setGameMode(int x)
-    {
+    public void setGameMode(int x) {
         gameMode = x;
-        if(gameMode == 1)
-        {
-            ai = new AI();
-        }
+        if(gameMode == 0) ai = new AI();
+        // Future extensions: gameMode = 2 -> Two Players over the network
     }
 
     /**
@@ -120,57 +118,42 @@ public class Controller{ //extends AppCompatActivity {
      * @param textViewTurn    Text View to show whose turn it is
      */
     public void initGame(Button[][] buttons, TextView textViewPlayer1, TextView textViewPlayer2, TextView textViewTurn){
+        this.textViewTurn = textViewTurn;
         this.textViewPlayer1 = textViewPlayer1;
         this.textViewPlayer2 = textViewPlayer2;
-        this.textViewTurn = textViewTurn;
         this.gameModel.buttons = buttons;
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                buttons[i][j].setOnClickListener(this::onClick);
                 this.gameModel.board[i][j] = new OthelloCell(i, j); // Meaning, this button hasn't been set yet
                 this.gameModel.buttons[i][j].setBackgroundResource(R.drawable.empty_cell);
                 this.gameModel.board[i][j].resetIt(); // This button hasn't been set yet
             }
         }
 
+        if(gameMode == 0) {
+            for (int i = 0; i < 8; i++)
+                for (int j = 0; j < 8; j++)
+                    buttons[i][j].setOnClickListener(this::aiGame);
+        }
+        else {
+            for (int i = 0; i < 8; i++)
+                for (int j = 0; j < 8; j++)
+                    buttons[i][j].setOnClickListener(this::twoPlayerGame);
+        }
         this.setInitState();
     }
 
-    public void onClick(View v){
-        final String tag = ((Button) v).getTag().toString();
+    private Pair<Integer, Integer> getXY(String tag) {
         final int pos = Integer.parseInt(tag);
-        int x = pos / 10;
-        int y = pos % 10;
-        if (gameMode == 1) {
+        return new Pair(pos / 10, pos % 10);
+    }
 
-            if (this.gameModel.isValidMove(x, y)) {
-                this.gameModel.playAndFlipTiles(v, x, y);
-                if (gameModel.player1Turn) textViewTurn.setText("White's Turn");
-                else textViewTurn.setText("Black's Turn (AI)");
-                gameModel.player1Turn = !gameModel.player1Turn;
-
-
-                Pair<Integer, Integer> move = ai.minimaxChoice(this.gameModel.board,gameModel.player1Turn);
-                x = move.first;
-                y = move.second;
-//
-                System.out.println("AI x : "+x+" AI y : "+y);
-//
-                this.gameModel.playAndFlipTiles(this.gameModel.buttons[x][y], x, y);
-                if (gameModel.player1Turn) textViewTurn.setText("White's Turn");
-                else textViewTurn.setText("Black's Turn");
-                gameModel.player1Turn = !gameModel.player1Turn;
-            }
-        } else {
-            if (this.gameModel.isValidMove(x, y)) {
-                this.gameModel.playAndFlipTiles(v, x, y);
-                if (gameModel.player1Turn) textViewTurn.setText("White's Turn");
-                else textViewTurn.setText("Black's Turn");
-                gameModel.player1Turn = !gameModel.player1Turn;
-            }
-        }
-
+    private void makeMove(View v, int x, int y) {
+        this.gameModel.playAndFlipTiles(v, x, y);
+        if (gameModel.player1Turn) textViewTurn.setText("White's Turn");
+        else textViewTurn.setText("Black's Turn");
+        gameModel.player1Turn = !gameModel.player1Turn;
         this.gameModel.markValidMoves();
         String[] textVals = this.gameModel.countScoreAndDrawScoreBoard();
         textViewPlayer1.setText(textVals[0]);
@@ -178,11 +161,28 @@ public class Controller{ //extends AppCompatActivity {
         if (textVals[2] != null) textViewTurn.setText(textVals[2]);
     }
 
-////    // Doesn't work
-//    public void setGameMode(int mode) {
-//       this.gameMode = mode;
-//       System.out.println(mode);
-//    }
+    public void twoPlayerGame(View v) {
+        final Pair<Integer, Integer> curPlay = getXY(((Button) v).getTag().toString());
+        x = curPlay.first;
+        y = curPlay.second;
+
+        if (this.gameModel.isValidMove(x, y))  makeMove(v, x, y);
+    }
+
+    public void aiGame(View v) {
+        final Pair<Integer, Integer> curPlay = getXY(((Button) v).getTag().toString());
+        x = curPlay.first;
+        y = curPlay.second;
+
+        if (this.gameModel.isValidMove(x, y)) {
+            makeMove(v, x, y);
+            // AI's turn
+            Pair<Integer, Integer> move = ai.minimaxChoice(this.gameModel.board,gameModel.player1Turn);
+            x = move.first;
+            y = move.second;
+            makeMove(this.gameModel.buttons[x][y], x, y);
+        }
+    }
 
     public void getStatistics(){
         return;
