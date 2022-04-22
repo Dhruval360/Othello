@@ -144,7 +144,7 @@ public class Controller { //extends AppCompatActivity {
             if (this.gameModel.isValidMove(x, y)) {
                 this.gameModel.playAndFlipTiles(v, x, y);
                 if (gameModel.player1Turn) textViewTurn.setText("White's Turn");
-                else textViewTurn.setText("Black's Turn");
+                else textViewTurn.setText("Black's Turn (AI)");
                 gameModel.player1Turn = !gameModel.player1Turn;
 
 
