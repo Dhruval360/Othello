@@ -65,9 +65,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/optionsButton"
-        android:textSize="26sp"
         android:text="How To Play?"
-        android:textAllCaps="false"/>
+        android:textAllCaps="false"
+        android:textSize="26sp" />
 
     <Button
         android:id="@+id/statsButton"

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollViewAI"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none" >
+
+<RelativeLayout
+    android:layout_width="fill_parent" android:layout_height="fill_parent"
+    android:id="@+id/AImenuContainer" android:orientation="horizontal"
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp"
+    android:background="@color/BG">
+
+    <TextView
+        android:id="@+id/aiMenuHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose Your Difficulty Level"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:layout_marginTop="69dp" />
+
+    <Button
+        android:id="@+id/AIeasy"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/aiMenuHeading"
+        android:layout_marginTop="69dp"
+        android:text="Easy"
+        android:textAllCaps="false"
+        android:textSize="26sp" />
+
+    <Button
+        android:id="@+id/AImedium"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/AIeasy"
+        android:layout_marginTop="69dp"
+        android:text="Medium"
+        android:textAllCaps="false"
+        android:textSize="26sp" />
+
+    <Button
+        android:id="@+id/AIhard"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/AImedium"
+        android:layout_marginTop="69dp"
+        android:text="Hard"
+        android:textAllCaps="false"
+        android:textSize="26sp" />
+</RelativeLayout>
+</ScrollView>
