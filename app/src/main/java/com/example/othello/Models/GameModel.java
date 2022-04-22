@@ -206,8 +206,6 @@ public class GameModel{
      *  @return         Returns true if the game is over, false otherwise.
      */
     public boolean checkTurnAndGameOver() {
-        boolean whiteCanGo = false, blackCanGo = false;
-
         for (int i=0; i<8; i++) {
             for (int j=0; j<8; j++) {
                 if (isValidMove(i, j)) {
