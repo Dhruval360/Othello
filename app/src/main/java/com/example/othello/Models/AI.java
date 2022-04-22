@@ -1,6 +1,9 @@
 package com.example.othello.Models;
 import com.example.othello.Models.OthelloCell;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class AI {
     private int bestx;
     private int besty;
@@ -18,8 +21,7 @@ public class AI {
     }
     public int[] minimaxChoice(OthelloCell [][]modelboard, boolean player1turn)
     {
-        int depth=3;
-        boolean blackTurn = !player1turn;
+        boolean blackTurn = player1turn;
         this.player1turn = player1turn;
         OthelloCell [][] board = new OthelloCell[8][8];
         //lenvalidmoves = 0;
@@ -30,92 +32,94 @@ public class AI {
                 board[i][j] = modelboard[i][j].clones();
             }
         }
-        minimax(board,depth,blackTurn);
+        minimax(board,maxdepth,blackTurn);
         int [] ans = new int[2];
         ans[0] = bestx;
         ans[1] = besty;
         return ans;
     }
 
-    public int minimax(OthelloCell [][]board,int depth, boolean bTurn)
-    {
+    public int minimax(OthelloCell [][]board, int depth, boolean bTurn) {
         int score = getScore(board);
-        if(depth == 0)
-        {
+        if(depth == 0) {
+            System.out.println("Minimax: (Depth = 0) Player = " + bTurn + " | Score = " + score);
             return score;
         }
-        if(bTurn){
-            int bestVal = -999999;
-            int [][] moves = getValidMoves(board,bTurn);
-            for(int []move : moves)
-            {
-                int x = move[0];
-                int y = move[1];
-                OthelloCell [][] tempboard = new OthelloCell[8][8];
-                for(int blah = 0; blah < 8; blah++)
-                {
-                    for(int bleh = 0; bleh< 8; bleh++)
-                    {
-                        tempboard[blah][bleh] = board[blah][bleh].clones();
-                    }
-                }
-                playAndFlipTiles(tempboard,x,y,bTurn);
-                int val = minimax(tempboard,depth-1,!bTurn);
-                if(val>bestVal)
-                {
-                    bestVal = val;
-                    //if((depth == maxdepth)&&(player1turn == bTurn)){
-                        bestx = x;
-                        besty = y;
-                    //}
 
+        int bestVal;
+        if(bTurn) bestVal = -999999;
+        else bestVal = 999999;
+
+        ArrayList<ArrayList<Integer>> moves = getValidMoves(board, bTurn);
+        for(ArrayList<Integer> validMove : moves) {
+            int x = validMove.get(0);
+            int y = validMove.get(1);
+            System.out.println("Minimax: (Depth = " + depth + ") Player = " + bTurn + " | Move = " + x + ", " + y);
+            OthelloCell [][] tempboard = new OthelloCell[8][8];
+            for(int blah = 0; blah < 8; blah++) {
+                for(int bleh = 0; bleh< 8; bleh++) {
+                    tempboard[blah][bleh] = board[blah][bleh].clones();
                 }
             }
-            return bestVal;
-        }
-        else{
-            int bestVal = 999999;
-            int [][] moves = getValidMoves(board,bTurn);
-            for(int []move : moves)
-            {
-                int x = move[0];
-                int y = move[1];
-                OthelloCell [][] tempboard = new OthelloCell[8][8];
-                for(int blah = 0; blah < 8; blah++)
-                {
-                    for(int bleh = 0; bleh< 8; bleh++)
-                    {
-                        tempboard[blah][bleh] = board[blah][bleh].clones();
-                    }
-                }
-                playAndFlipTiles(tempboard,x,y,bTurn);
-                int val = minimax(tempboard,depth-1,!bTurn);
-                if(val<bestVal)
-                {
-                    bestVal = val;
-                    //if((depth == maxdepth)&&(player1turn == bTurn)){
-                        bestx = x;
-                        besty = y;
-                    //}
+            playAndFlipTiles(tempboard,x,y,bTurn);
+            int val = minimax(tempboard,depth-1,!bTurn);
+
+            if( (bTurn && val>bestVal) || (!bTurn && val < bestVal) ) {
+                bestVal = val;
+                if(depth == maxdepth) {
+                    bestx = x;
+                    besty = y;
                 }
             }
-            return bestVal;
         }
+        System.out.println("Minimax: (Depth = " + depth + ") Player = " + bTurn + " | Score = " + bestVal + " | Best Move = " + bestx + ", " + besty);
+        return bestVal;
+//        }
+//        else{
+//            int bestVal = 999999;
+//            ArrayList<ArrayList<Integer>> moves = getValidMoves(board, bTurn);
+//            for(ArrayList<Integer> validMove : moves) {
+//                int x = validMove.get(0);
+//                int y = validMove.get(1);
+//                OthelloCell [][] tempboard = new OthelloCell[8][8];
+//                for(int blah = 0; blah < 8; blah++)
+//                {
+//                    for(int bleh = 0; bleh< 8; bleh++)
+//                    {
+//                        tempboard[blah][bleh] = board[blah][bleh].clones();
+//                    }
+//                }
+//                playAndFlipTiles(tempboard,x,y,bTurn);
+//                int val = minimax(tempboard,depth-1,!bTurn);
+//                if(val<bestVal)
+//                {
+//                    bestVal = val;
+//                    //if((depth == maxdepth)&&(player1turn == bTurn)){
+//                    bestx = x;
+//                    besty = y;
+//                    //}
+//
+//                }
+//            }
+//            return bestVal;
+//    }
 
     }
 
-    public int[][] getValidMoves(OthelloCell [][]board,boolean bTurn)
+    public ArrayList<ArrayList<Integer>> getValidMoves(OthelloCell [][]board, boolean bTurn)
     {
         int len = 0;
-        int[][] validMoves = new int[64][64];
+        ArrayList<ArrayList<Integer>> validMoves = new ArrayList<>();
         for(int i = 0; i < 8; i++)
         {
             for(int j = 0; j < 8; j++)
             {
                 if(isValidMove(board,i,j,bTurn))
                 {
-                    validMoves[len][0] = i;
-                    validMoves[len][1] = j;
+                    ArrayList<Integer> validMove = new ArrayList<>();
+                    validMove.add(i);
+                    validMove.add(j);
+                    validMoves.add(validMove);
                     len++;
                 }
             }
@@ -145,6 +149,7 @@ public class AI {
     {
         if (board[xt][yt].hasBeenPlayed()) //Cant place on top of a played board
         {
+            System.out.println("isValidMove: " + xt + "," + yt + " is invalid");
             return false;
         }
         /// check the 8 possible directions.
@@ -154,11 +159,12 @@ public class AI {
             {
                 if (!(i==0&&j==0)&&directionValid(board,xt,yt,i,j,bTurn))
                 {
+                    System.out.println("isValidMove: " + xt + "," + yt + " is valid");
                     return true; ///If the direction is valid then return true
                 }
             }
         }
-        System.out.println();
+        System.out.println("isValidMove: " + xt + "," + yt + " is invalid");
         return false;
     }
 
