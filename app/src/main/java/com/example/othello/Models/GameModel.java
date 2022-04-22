@@ -4,7 +4,7 @@ import android.view.View;
 import com.example.othello.R;
 import android.widget.Button;
 
-public class GameModel {
+public class GameModel{
     /**
      * A Singleton class containing the game state
      */
@@ -51,6 +51,7 @@ public class GameModel {
      */
     boolean isPlayable(int x, int y) {
         // TODO
+        if(isValidMove(x,y)) return true;
         return false;
     }
 
@@ -147,17 +148,13 @@ public class GameModel {
      *  current cell.
      */
     public void playAndFlipTiles (View v, int x, int y) {
+//        System.out.println("AI playAndFlipTiles: " + x + ", " + y);
         if (player1Turn) v.setBackgroundResource(R.drawable.black_circle);
         else v.setBackgroundResource(R.drawable.white_circle);
 
-        if(false){
-            // Pass to AI
-            // returns X and Y
-        }
-        else{
-            board[x][y].setBlack(player1Turn);
-            board[x][y].playIt();
-        }
+        board[x][y].setBlack(player1Turn);
+        board[x][y].playIt();
+
 
         for (int i=-1; i<=1; i++) {
             for (int j=-1; j<=1; j++) {
@@ -258,4 +255,5 @@ public class GameModel {
         }
         return new String[]{"Black: " + blackCount, "White: " + whiteCount, turnText};
     }
+
 }

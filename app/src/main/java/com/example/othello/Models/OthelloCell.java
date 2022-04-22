@@ -11,43 +11,81 @@ package com.example.othello.Models;
 public class OthelloCell {
     private int x, y; // Haven't been used anywhere?
     private boolean played, black;
+
     /**
-     *  Creates an OthelloCell object, at the given coordinate pair.
-     *  @param  i      The horizontal coordinate value for the cell on the board.
-     *  @param  j      The vertical coordinate value for the cell on the board.
+     * Creates an OthelloCell object, at the given coordinate pair.
+     *
+     * @param i The horizontal coordinate value for the cell on the board.
+     * @param j The vertical coordinate value for the cell on the board.
      */
     public OthelloCell(int i, int j) {
         played = false;
         black = true;
         x = i;
         y = j;
+
+    }
+    public OthelloCell(){
+        played = false;
+        black = true;
     }
 
     /**
-     *  Sets the piece to black (black true) or white (black false).
-     *  @param  bool      The value to be assigned to the game piece.
+     * Sets the piece to black (black true) or white (black false).
+     *
+     * @param bool The value to be assigned to the game piece.
      */
-    public void setBlack(boolean bool) { black = bool; }
+    public void setBlack(boolean bool) {
+        black = bool;
+    }
 
     /**
-     *  Return the status of black; true for a black piece, false for a white piece.
-     *  @return            Returns true for a black piece, false for a white piece.
+     * Return the status of black; true for a black piece, false for a white piece.
+     *
+     * @return Returns true for a black piece, false for a white piece.
      */
-    public boolean getBlackStatus() { return black; }
+    public boolean getBlackStatus() {
+        return black;
+    }
 
     /**
-     *  Sets the value of played to true, to indicate that a piece has been placed on this cell.
+     * Sets the value of played to true, to indicate that a piece has been placed on this cell.
      */
-    public void playIt() { played = true; }
+    public void playIt() {
+        played = true;
+    }
 
     /**
-     *  Resets the cell
+     * Resets the cell
      */
-    public void resetIt() { played = false; }
+    public void resetIt() {
+        played = false;
+    }
 
     /**
-     *  Return the status of played, indicating whether or not there is a game piece on this cell.
-     *  @return            Returns true if a game piece is on this cell, false otherwise.
+     * Return the status of played, indicating whether or not there is a game piece on this cell.
+     *
+     * @return Returns true if a game piece is on this cell, false otherwise.
      */
-    public boolean hasBeenPlayed() { return played; }
+    public boolean hasBeenPlayed() {
+        return played;
+    }
+
+
+    /**
+     * Returns the clone of the cell which is required in MiniMax
+     *
+     * @param  - For the parameter x of OthelloCell
+     * @param  - For the parameter y of OthelloCell
+     * @return - tempCell : a clone of the object
+     * @throws CloneNotSupportedException
+     */
+    public OthelloCell clones(){
+        OthelloCell tempCell = new OthelloCell();
+        tempCell.setBlack(this.getBlackStatus());
+        if (this.hasBeenPlayed()) {
+            tempCell.playIt();
+        }
+        return tempCell;
+    }
 }

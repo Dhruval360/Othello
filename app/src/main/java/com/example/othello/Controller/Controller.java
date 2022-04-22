@@ -6,7 +6,7 @@ import android.view.View;
 import com.example.othello.R;
 import android.widget.Button;
 import android.widget.TextView;
-
+import com.example.othello.Models.AI;
 //import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.othello.Models.GameModel;
@@ -26,7 +26,17 @@ public class Controller{ //extends AppCompatActivity {
     private final Stats statistics = new Stats();
 
     // gameMode keeps track of which mode the user is playing in
-    protected int gameMode = 1;
+    protected int gameMode;
+
+    private AI ai;
+    public void setGameMode(int x)
+    {
+        gameMode = x;
+        if(gameMode == 1)
+        {
+            ai = new AI();
+        }
+    }
 
     /**
      * Constructor that initializes the gameMode to 1
@@ -108,7 +118,7 @@ public class Controller{ //extends AppCompatActivity {
      * @param textViewPlayer2 Text View to show the Second Player's score
      * @param textViewTurn    Text View to show whose turn it is
      */
-    public void initGame(Button[][] buttons, TextView textViewPlayer1, TextView textViewPlayer2, TextView textViewTurn) {
+    public void initGame(Button[][] buttons, TextView textViewPlayer1, TextView textViewPlayer2, TextView textViewTurn){
         this.textViewPlayer1 = textViewPlayer1;
         this.textViewPlayer2 = textViewPlayer2;
         this.textViewTurn = textViewTurn;
@@ -126,14 +136,27 @@ public class Controller{ //extends AppCompatActivity {
         this.setInitState();
     }
 
-    public void onClick(View v) {
+    public void onClick(View v){
         final String tag = ((Button) v).getTag().toString();
         final int pos = Integer.parseInt(tag);
         int x = pos / 10;
         int y = pos % 10;
-        if (false) {
+        if (gameMode == 1) {
+
             if (this.gameModel.isValidMove(x, y)) {
                 this.gameModel.playAndFlipTiles(v, x, y);
+                if (gameModel.player1Turn) textViewTurn.setText("White's Turn");
+                else textViewTurn.setText("Black's Turn (AI)");
+                gameModel.player1Turn = !gameModel.player1Turn;
+
+
+                int[] move = ai.minimaxChoice(this.gameModel.board,gameModel.player1Turn);
+                x = move[0];
+                y = move[1];
+//
+                System.out.println("AI x : "+x+" AI y : "+y);
+//
+                this.gameModel.playAndFlipTiles(this.gameModel.buttons[x][y], x, y);
                 if (gameModel.player1Turn) textViewTurn.setText("White's Turn");
                 else textViewTurn.setText("Black's Turn");
                 gameModel.player1Turn = !gameModel.player1Turn;
