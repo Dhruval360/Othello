@@ -1,5 +1,6 @@
 package com.example.othello.Views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import com.example.othello.R;
 import android.widget.Button;
@@ -40,4 +41,14 @@ public class GameActivity extends AppCompatActivity {
         Button buttonReset = findViewById(R.id.button_reset);
         buttonReset.setOnClickListener(v -> controllerObj.resetGame());
     }
+
+    // trying to direct to MenuActivity on back key press
+   /* @Override
+    public void OnBackPressed() {
+        // Handle the back button event
+        super.onBackPressed();
+        Intent intent = new Intent(this,MenuActivity.class);
+        startActivity(intent);
+    }*/
+
 }

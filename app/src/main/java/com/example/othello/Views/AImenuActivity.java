@@ -3,6 +3,8 @@ import android.os.Bundle;
 import com.example.othello.R;
 import android.widget.Button;
 import android.content.Intent;
+
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.othello.Controller.Controller;
@@ -46,7 +48,23 @@ public class AImenuActivity extends AppCompatActivity{
             controllerObj.setAImode(3); // temp fix
 //            controllerObj.switchView(this);
             Intent intent = new Intent(this, GameActivity.class);
+            finish();
             startActivity(intent);
+            //finish();
         });
     }
+
+    //OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */){
+       /* @Override
+        public void OnBackPressed() {
+            // Handle the back button event
+            super.onBackPressed();
+            Intent intent = new Intent(this,MenuActivity.class);
+            startActivity(intent);
+        }*/
+
+    //requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
+    // The callback can be enabled or disabled here or in handleOnBackPressed()
 }
+
