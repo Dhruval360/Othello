@@ -12,8 +12,10 @@ public class AI {
         maxdepth = 3; // Needs to come from the user
     }
 
-    public Pair<Integer, Integer> minimaxChoice(OthelloCell [][]modelBoard, boolean aiTurn) {
+    public Pair<Integer, Integer> minimaxChoice(OthelloCell [][]modelBoard, boolean aiTurn,int userdepth) {
         boolean blackTurn = aiTurn;
+        maxdepth=userdepth;
+        System.out.println("MAXDEPTH : "+maxdepth);
         this.aiTurn = aiTurn;
         OthelloCell [][] board = new OthelloCell[8][8];
         for(int i = 0; i < 8; i++) {

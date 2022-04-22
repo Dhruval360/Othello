@@ -22,7 +22,7 @@ public class Controller{ //extends AppCompatActivity {
     private TextView textViewPlayer2;
     private TextView textViewTurn;
     private int x, y;
-
+    private int AImode;
     private static final Controller controllerObj = new Controller();
     private final GameModel gameModel = GameModel.getInstance();
     private final Stats statistics = new Stats();
@@ -31,6 +31,9 @@ public class Controller{ //extends AppCompatActivity {
     protected int gameMode;
 
     private AI ai;
+    public void setAImode(int x) {
+        AImode = x;
+    }
     public void setGameMode(int x) {
         gameMode = x;
         if(gameMode == 0) ai = new AI();
@@ -177,7 +180,7 @@ public class Controller{ //extends AppCompatActivity {
         if (this.gameModel.isValidMove(x, y)) {
             makeMove(v, x, y);
             // AI's turn
-            Pair<Integer, Integer> move = ai.minimaxChoice(this.gameModel.board,gameModel.player1Turn);
+            Pair<Integer, Integer> move = ai.minimaxChoice(this.gameModel.board,gameModel.player1Turn,AImode);
             x = move.first;
             y = move.second;
             makeMove(this.gameModel.buttons[x][y], x, y);

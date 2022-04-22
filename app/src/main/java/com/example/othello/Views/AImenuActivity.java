@@ -24,5 +24,29 @@ public class AImenuActivity extends AppCompatActivity{
             System.out.println("false");
             System.out.println(controllerObj);
         }
+
+        Button easy = findViewById(R.id.AIeasy);
+        easy.setOnClickListener(v -> {
+            controllerObj.setAImode(1); // temp fix
+//            controllerObj.switchView(this);
+            Intent intent = new Intent(this, GameActivity.class);
+            startActivity(intent);
+        });
+
+        Button medium = findViewById(R.id.AImedium);
+        medium.setOnClickListener(v -> {
+            controllerObj.setAImode(2); // temp fix
+//            controllerObj.switchView(this);
+            Intent intent = new Intent(this, GameActivity.class);
+            startActivity(intent);
+        });
+
+        Button hard = findViewById(R.id.AIhard);
+        hard.setOnClickListener(v -> {
+            controllerObj.setAImode(3); // temp fix
+//            controllerObj.switchView(this);
+            Intent intent = new Intent(this, GameActivity.class);
+            startActivity(intent);
+        });
     }
 }

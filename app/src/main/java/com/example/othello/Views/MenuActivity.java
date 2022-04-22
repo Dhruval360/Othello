@@ -30,7 +30,7 @@ public class MenuActivity extends AppCompatActivity {
         singlePlayerButton.setOnClickListener(v -> {
             controllerObj.setGameMode(0); // temp fix
 //            controllerObj.switchView(this);
-             Intent intent = new Intent(this, GameActivity.class);
+             Intent intent = new Intent(this, AImenuActivity.class);
              startActivity(intent);
          });
 
