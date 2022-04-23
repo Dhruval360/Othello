@@ -1,8 +1,11 @@
 package com.example.othello.Models;
 
+import android.util.Pair;
 import android.view.View;
 import com.example.othello.R;
 import android.widget.Button;
+
+import java.util.ArrayList;
 
 public class GameModel{
     /**
@@ -55,14 +58,21 @@ public class GameModel{
         return false;
     }
 
+    public boolean hasValidMove() {
+        ArrayList<Pair<Integer, Integer>> validMoves = new ArrayList<Pair<Integer, Integer>>();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if(this.board[i][j].hasBeenPlayed()) continue;
+                if(isPlayable(i, j))  return true;
+            }
+        }
+        return false;
+    }
+
     /**
      *  Marks all the valid moves for the given player.
      */
     public void markValidMoves() {
-        // TODO
-
-
-
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if(this.board[i][j].hasBeenPlayed()) continue;
@@ -206,6 +216,7 @@ public class GameModel{
      *  @return         Returns true if the game is over, false otherwise.
      */
     public boolean checkTurnAndGameOver() {
+//        System.out.println("checkTurnAndGameOver called!!");
         for (int i=0; i<8; i++) {
             for (int j=0; j<8; j++) {
                 if (isValidMove(i, j)) {
@@ -243,15 +254,12 @@ public class GameModel{
         }
 
         String turnText = null;
-
         if(this.checkTurnAndGameOver()) { // Game Over
-            if(blackCount == whiteCount) {
-                if(whiteCount > blackCount) turnText = "White Wins!";
-                else if(whiteCount < blackCount) turnText = "Black Wins!";
-                else turnText = "Draw!";
-            }
+            if(whiteCount > blackCount) turnText = "White Wins!";
+            else if(whiteCount < blackCount) turnText = "Black Wins!";
+            else turnText = "Draw!";
         }
-        return new String[]{"Black: " + blackCount, "White: " + whiteCount, turnText};
+        return new String[]{"" + blackCount, "" + whiteCount, turnText};
     }
 
 }
