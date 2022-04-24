@@ -51,32 +51,32 @@
         android:text="Two Player"
         android:textAllCaps="false"/>
 
-    <Button
-        android:id="@+id/optionsButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/twoPlayerButton"
-        android:textSize="26sp"
-        android:text="Options"
-        android:textAllCaps="false"/>
+<!--    <Button-->
+<!--        android:id="@+id/optionsButton"-->
+<!--        android:layout_width="fill_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/twoPlayerButton"-->
+<!--        android:textSize="26sp"-->
+<!--        android:text="Options"-->
+<!--        android:textAllCaps="false"/>-->
 
-    <Button
-        android:id="@+id/howToPlay"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/optionsButton"
-        android:text="How To Play?"
-        android:textAllCaps="false"
-        android:textSize="26sp" />
+<!--    <Button-->
+<!--        android:id="@+id/howToPlay"-->
+<!--        android:layout_width="fill_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/optionsButton"-->
+<!--        android:text="How To Play?"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textSize="26sp" />-->
 
-    <Button
-        android:id="@+id/statsButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/howToPlay"
-        android:text="Statistics"
-        android:textAllCaps="false"
-        android:textSize="26sp" />
+<!--    <Button-->
+<!--        android:id="@+id/statsButton"-->
+<!--        android:layout_width="fill_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/howToPlay"-->
+<!--        android:text="Statistics"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textSize="26sp" />-->
 
 </RelativeLayout>
 </ScrollView>
