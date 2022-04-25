@@ -15,6 +15,8 @@ import com.example.othello.Models.OthelloCell;
 import com.example.othello.Models.Stats;
 import com.example.othello.Views.GameActivity;
 
+import java.util.ArrayList;
+
 public class Controller{ //extends AppCompatActivity {
     // From the GameActivity
     // Use these to show the current scores
@@ -103,9 +105,14 @@ public class Controller{ //extends AppCompatActivity {
      */
     private void setInitState() {
         // Initial scores
-        textViewPlayer1.setText("Black: 2");
-        textViewPlayer2.setText("White: 2");
-
+        if(this.gameMode == 0) {
+            textViewPlayer1.setText("Black (AI) : 2");
+            textViewPlayer2.setText("White (You): 2");
+        }
+        else {
+            textViewPlayer1.setText("Black: 2");
+            textViewPlayer2.setText("White: 2");
+        }
         // Initial Turn
         textViewTurn.setText("White's Turn");
         gameModel.player1Turn = false;
@@ -157,11 +164,26 @@ public class Controller{ //extends AppCompatActivity {
         if (gameModel.player1Turn) textViewTurn.setText("White's Turn");
         else textViewTurn.setText("Black's Turn");
         gameModel.player1Turn = !gameModel.player1Turn;
+        if(!this.gameModel.hasValidMove()) {
+            gameModel.player1Turn = !gameModel.player1Turn;
+            if (gameModel.player1Turn) textViewTurn.setText("White's Turn");
+            else textViewTurn.setText("Black's Turn");
+        }
         this.gameModel.markValidMoves();
         String[] textVals = this.gameModel.countScoreAndDrawScoreBoard();
+        if(this.gameMode == 0) {
+            textVals[0] = "Black (AI) : " + textVals[0];
+            textVals[1] = "White (You): " + textVals[1];
+        }
+        else {
+            textVals[0] = "Black: " + textVals[0];
+            textVals[1] = "White: " + textVals[1];
+        }
         textViewPlayer1.setText(textVals[0]);
         textViewPlayer2.setText(textVals[1]);
         if (textVals[2] != null) textViewTurn.setText(textVals[2]);
+//        System.out.println("makeMove: " + x + ", " + y);
+//        System.out.println("makeMove: Current Thread " + Thread.currentThread());
     }
 
     public void twoPlayerGame(View v) {
@@ -173,21 +195,35 @@ public class Controller{ //extends AppCompatActivity {
     }
 
     public void aiGame(View v) {
-        final Pair<Integer, Integer> curPlay = getXY(((Button) v).getTag().toString());
+        Pair<Integer, Integer> curPlay = getXY(((Button) v).getTag().toString());
         x = curPlay.first;
         y = curPlay.second;
 
         if (this.gameModel.isValidMove(x, y)) {
-            makeMove(v, x, y);
-            // AI's turn
-            Pair<Integer, Integer> move = ai.minimaxChoice(this.gameModel.board,gameModel.player1Turn,AImode);
-            x = move.first;
-            y = move.second;
-            makeMove(this.gameModel.buttons[x][y], x, y);
+//            System.out.println("aiGame: Valid Move!");
+            if (!this.gameModel.player1Turn) { // Real user
+                makeMove(v, x, y);
+//                System.out.println("aiGame: player1Turn = " + gameModel.player1Turn);
+                Pair<Integer, Integer> move = ai.minimaxChoice(this.gameModel.board,gameModel.player1Turn,AImode);
+
+                x = move.first;
+                y = move.second;
+                this.gameModel.buttons[x][y].callOnClick();
+            }
+            else {
+//                System.out.println("aiGame: AI's turn | " + this.gameModel.player1Turn);
+//                try {
+//                    Thread.sleep(1000);
+//                }
+//                catch(Exception e) {
+//                    System.out.println("Sleep Exception: " + e);
+//                }
+                makeMove(v, x, y);
+            }
         }
     }
 
-    public void getStatistics(){
+    public void getStatistics() {
         return;
     }
 }
