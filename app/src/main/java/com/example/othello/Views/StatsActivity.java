@@ -15,7 +15,6 @@ import android.view.Menu;
 
 public class StatsActivity extends AppCompatActivity {
     private final Controller controllerObj = Controller.getInstance();
-    private final Button[] buttons = new Button[10];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,14 +24,9 @@ public class StatsActivity extends AppCompatActivity {
         if(getSupportActionBar() != null)
             getSupportActionBar().hide(); // Hides the top bar which displays the app's name
 
-        controllerObj.getStatistics();
+//        controllerObj.getStatistics();
 
         //TODO: Make the UI for the Leaderboard
-        for (int i = 0; i < 10; i++) {
-//            String buttonID = "button_" + i;
-//            int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
-//            buttons[i] = findViewById(resID);
-//            buttons[i].setBackgroundResource(R.drawable.empty_cell);
-        }
+
     }
 }

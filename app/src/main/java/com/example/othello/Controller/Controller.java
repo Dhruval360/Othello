@@ -27,7 +27,7 @@ public class Controller{ //extends AppCompatActivity {
     private int AImode;
     private static final Controller controllerObj = new Controller();
     private final GameModel gameModel = GameModel.getInstance();
-    private final Stats statistics = new Stats();
+//    private final Stats statistics = new Stats();
 
     // gameMode keeps track of which mode the user is playing in - Single Player (0) or Two Player (1)
     protected int gameMode;
@@ -223,7 +223,7 @@ public class Controller{ //extends AppCompatActivity {
         }
     }
 
-    public void getStatistics() {
-        return;
-    }
+//    public void getStatistics() {
+//        return;
+//    }
 }
